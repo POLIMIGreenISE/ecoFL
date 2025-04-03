@@ -41,11 +41,11 @@ pip install -r requirements.txt
 streamlit run frontend/main.py
 ```
 
-4. Start simulating! 🚀
+4. **Start simulating**! 🚀
 
 ## 📒 Notes
-  1. The datasets that can be inserted as input, at the moment must be reported in .txt format and defined with the schema used by the datasets from the [The UEA   multivariate time series classification archive, 2018](https://www.timeseriesclassification.com) which have been used for the research project.
-  2. Inside the directory 'data_nodes' the results from the research experimentation are present, the platform is now upgraded and saves the results with a new schema.
+  1. Input datasets must be in `.txt` format and shoudl follow [The UEA multivariate time series classification archive](https://www.timeseriesclassification.com) schema.
+  2. The research experiments results are stored in 'data_nodes' directory. The platform saves the simulation results with a new schema.
 
 ## 💭 Future Work
   1. Collect more experimental data points to improve the training of the reduction model used in the Recommender Methodologies
