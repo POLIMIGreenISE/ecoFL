@@ -1,0 +1,10 @@
+[{"id": 0, "device": "NVIDIA GeForce RTX 3090", "energy_consumption": 350, "location": "Finland", "carbon_intensity": 209.91, "data_volume": 0.18, "consistency": 0.78, "completeness": 0.8},
+ {"id": 1, "device": "Qualcomm Adreno 650", "energy_consumption": 10, "location": "Germany", "carbon_intensity": 584.99, "data_volume": 0.1, "consistency": 0.87, "completeness": 0.89},
+ {"id": 2, "device": "Xilinx Alveo U250", "energy_consumption": 75, "location": "Portugal", "carbon_intensity": 75.62, "data_volume": 0.2, "consistency": 0.93, "completeness": 0.95},
+ {"id": 3, "device": "Google Cloud TPU (v2 or v3)", "energy_consumption": 250, "location": "Portugal", "carbon_intensity": 75.62, "data_volume": 0.12, "consistency": 0.70, "completeness": 0.7},
+ {"id": 4, "device": "NVIDIA GeForce GTX 1050", "energy_consumption": 100, "location": "Canada", "carbon_intensity": 28.81, "data_volume": 0.1, "consistency": 0.91, "completeness": 0.8},
+ {"id": 5, "device": "NVIDIA GeForce RTX 3090", "energy_consumption": 350, "location": "California", "carbon_intensity": 217.85, "data_volume": 0.1, "consistency": 0.95, "completeness": 0.7},
+ {"id": 6, "device": "AWS p3.2xlarge (NVIDIA V100 GPU)", "energy_consumption": 300, "location": "Bosnia Herzegovina", "carbon_intensity": 441.12, "data_volume": 0.05, "consistency": 0.82, "completeness": 0.82},
+ {"id": 7, "device": "Xilinx Alveo U250", "energy_consumption": 75, "location": "Finland", "carbon_intensity": 209.91, "data_volume": 0.05, "consistency": 0.95, "completeness": 0.95},
+ {"id": 8, "device": "NVIDIA Jetson Xavier NX with NVIDIA GPU", "energy_consumption": 30, "location": "California", "carbon_intensity": 217.85, "data_volume": 0.04, "consistency": 0.90, "completeness": 0.90},
+ {"id": 9, "device": "Qualcomm Adreno 650", "energy_consumption": 10, "location": "Bosnia Herzegovina", "carbon_intensity": 441.12, "data_volume": 0.06, "consistency": 0.98, "completeness": 0.98}]
