@@ -14,6 +14,7 @@ def initialize_session_state():
         st.session_state.load_dataset_paths_status = True
         st.session_state.load_partition_status = False
         st.session_state.client_configuration_status = False
+        st.session_state.training_configuration_status = False
         st.session_state.sim_end = False
         st.session_state.number_clients_configured = 0
         st.session_state.data_volume_lst = []
@@ -103,6 +104,8 @@ def render_client_configuration():
         if st.button("Apply"):
             st.session_state.client_configuration_status = False
             update_session_state(data_params, num_nodes)
+            if st.session_state.number_clients == st.session_state.number_clients_configured:
+                st.session_state.training_configuration_status = True
             st.rerun()
 
 def update_session_state(data_params, num_nodes):
@@ -159,7 +162,7 @@ def run_simulation(node_selection, fraction_fit, rounds, file_path):
             'indexes_val': st.session_state.data['indexes_val'],
         }
 
-        results_dict = run_fl_simulation(
+        st.session_state.results_dct = run_fl_simulation(
             data=data_dct,
             node_options_lst=node_options_lst,
             node_selection=node_selection,
@@ -169,15 +172,31 @@ def run_simulation(node_selection, fraction_fit, rounds, file_path):
             file_path=file_path
         )
 
-    st.write("The experiment results are:")
-    st.json(results_dict)
     st.session_state.sim_end = True
+    st.rerun()
+    
+
+def show_results():
+    c0, c1, c2, c3, c4 = st.columns(5)
+    with c0:
+        st.metric(label="**Total Epochs**", value=st.session_state.results_dct['effective_epochs'])
+    with c1:
+        st.metric(label="**Emissions** _kgCO2eq_", value=round(st.session_state.results_dct["effective_emissions_kg"], 6))
+    with c2:
+        st.metric(label="**Energy** Consumed _kWh_", value=round(st.session_state.results_dct["effective_energy_consumed"], 6))
+    with c3:
+        st.metric(label="**Duration** _seconds_", value=round(st.session_state.results_dct["effective_duration"], 1))
+    with c4:
+        accuracy_value = next((v for k, v in st.session_state.results_dct.items() if 'Accuracy' in k), None)
+        st.metric(label="**Accuracy**", value=round(accuracy_value, 3))
+    
+    st.json(st.session_state.results_dct)
 
 
 # -------------------------------------------------
 # Main --- Streamlit needs global scope executables
 
-st.title("🚀 Federated Learning Simulator")
+st.title("🖥️ Federated Learning Simulator")
 initialize_session_state()
 
 if st.session_state.load_dataset_paths_status:
@@ -186,12 +205,16 @@ elif st.session_state.load_partition_status:
     load_partition_and_visualization()
 elif st.session_state.number_clients_configured < st.session_state.number_clients and st.session_state.client_configuration_status:
     render_client_configuration()
-else:
+elif st.session_state.training_configuration_status:
     st.success("All Clients have been correctly configured!")
     node_selection, fraction_fit, rounds, file_path = render_training_configuration()
-    
     if st.button("Start"):
+        st.session_state.training_configuration_status = False 
         run_simulation(node_selection, fraction_fit, rounds, file_path)
+else:
+    st.success("Simulation Ended Succesfully!", icon="🎉")
+    show_results()
+
 
 if st.session_state.sim_end:
     if st.button("New Simulation", use_container_width=True):

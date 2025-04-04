@@ -67,6 +67,18 @@ def reduce_consistency(x_train, y_train, options):
         class_to_corrupt = max(classes_counts_original, key=classes_counts_original.get)
         indices = np.squeeze(np.argwhere(y_train == class_to_corrupt))
 
+    # Select indices to remove (original data points)
+    indices_to_remove = np.random.choice(indices, n_to_add)
+    
+    # Create mask to keep only the data points we want to retain
+    mask = np.ones(original_total, dtype=bool)
+    mask[indices_to_remove] = False
+    
+    # Get the data points we want to keep
+    x_train_retained = x_train[mask]
+    y_train_retained = y_train[mask]
+
+    # Create inconsistent duplicates
     inconsistent_indices = np.random.choice(indices, n_to_add)
     x_train_duplicates, y_train_duplicates = (
         x_train[inconsistent_indices].copy(),
@@ -77,9 +89,10 @@ def reduce_consistency(x_train, y_train, options):
         new_y_value = np.random.choice(list(class_list.difference({y_value})))
         y_train_duplicates[i] = new_y_value
 
+    # Concatenate retained data with inconsistent duplicates
     new_x_train, new_y_train = np.concatenate(
-        (x_train, x_train_duplicates)
-    ), np.concatenate((y_train, y_train_duplicates))
+        (x_train_retained, x_train_duplicates)
+    ), np.concatenate((y_train_retained, y_train_duplicates))
     permutations = np.random.permutation(new_x_train.shape[0])
 
     return new_x_train[permutations], new_y_train[permutations]

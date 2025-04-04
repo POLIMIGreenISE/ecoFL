@@ -211,7 +211,7 @@ def rec_pipeline():
             recommender=True
         )
 
-        results_dct = run_fl_recommender(
+        st.session_state.results_dct = run_fl_recommender(
             data=st.session_state.data,
             node_options_lst=node_options_lst,
             recommender_method=st.session_state.rec_method,
@@ -220,7 +220,6 @@ def rec_pipeline():
             dir_path=st.session_state.dir_path
         )
 
-        st.json(results_dct)
         st.session_state.rec_mode_status = False
         st.session_state.sim_end = True
 
@@ -236,7 +235,7 @@ def full_resource_pipeline():
                 recommender=True
             )
         
-        results_dct = run_fl_simulation(
+        st.session_state.results_dct = run_fl_simulation(
             data=st.session_state.data,
             node_options_lst=node_options_lst,
             node_selection='fixed',
@@ -246,11 +245,23 @@ def full_resource_pipeline():
             file_path=st.session_state.dir_path+'full_resource_sim.json'
         )
         
-        st.json(results_dct)
-        st.session_state.full_mode_status = False
-        st.session_state.sim_end = True
+    st.json(st.session_state.results_dct)
+    st.session_state.full_mode_status = False
+    st.session_state.sim_end = True
         
-
+def show_results():
+    c0, c1, c2, c3, c4 = st.columns(5)
+    with c0:
+        st.metric(label="**Total Epochs**", value=st.session_state.results_dct['effective_epochs'])
+    with c1:
+        st.metric(label="**Emissions** _kgCO2eq_", value=round(st.session_state.results_dct["effective_emissions_kg"], 6))
+    with c2:
+        st.metric(label="**Energy** Consumed _kWh_", value=round(st.session_state.results_dct["effective_energy_consumed"], 6))
+    with c3:
+        st.metric(label="**Duration** _seconds_", value=round(st.session_state.results_dct["effective_duration"], 1))
+    with c4:
+        accuracy_value = next((v for k, v in st.session_state.results_dct.items() if 'Accuracy' in k), None)
+        st.metric(label="**Accuracy**", value=accuracy_value)
 
 # -------------------------------------------------
 # Main --- Streamlit needs global scope executables
@@ -274,7 +285,7 @@ elif st.session_state.full_mode_status:
 elif st.session_state.rec_mode_status:
     rec_pipeline()
 else:
-    pass
+    show_results()
 
 if st.session_state.sim_end:
     if st.button("**New Simulation**", use_container_width=True):
