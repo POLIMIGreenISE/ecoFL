@@ -82,7 +82,7 @@ def load_partition_and_visualization():
 
 def render_client_configuration():
     """Render the client configuration interface"""
-    st.write("#### Configure data setting per each node client of your federated learning environment")
+    st.write("#### Configure Data Quality Dimension values of your clients")
     if st.session_state.number_clients_configured > 0:
         st.success(f"{st.session_state.number_clients_configured} Clients already configured! "
                   f"Configure the remaining {st.session_state.number_clients-st.session_state.number_clients_configured} Clients")
@@ -99,12 +99,12 @@ def render_client_configuration():
 
     with col2:
         max_nodes = st.session_state.number_clients - st.session_state.number_clients_configured
-        num_nodes = st.number_input("Select the number of nodes to configure:", 1, max_nodes)
+        num_nodes = st.number_input("Number of clients to configure", 1, max_nodes)
         
-        if st.button("Apply"):
-            st.session_state.client_configuration_status = False
+        if st.button("Apply", use_container_width=True):
             update_session_state(data_params, num_nodes)
             if st.session_state.number_clients == st.session_state.number_clients_configured:
+                st.session_state.client_configuration_status = False
                 st.session_state.training_configuration_status = True
             st.rerun()
 

@@ -16,6 +16,7 @@ Experiment and run Federated Learning Simulations, powered by [Flower.ai](https:
 ### 🖥️ Federated Learning Simulator
   * **Dataset Partitions**: Define the source Dataset for your training session and the number of Federated Learning clients 
   * **Data Quality Poisoning**: Configure the Data Quality Dimensions measure of client data partitions
+    ![Data Poisoning](utils/images/simulator.gif)
   * **Training Strategy**: Choose which node strategy selection suits best for your training session
 
 ### 🔮 Federated Learning Recommender
