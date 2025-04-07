@@ -18,6 +18,7 @@ Experiment and run Federated Learning Simulations, powered by [Flower.ai](https:
   * **Data Quality Poisoning**: Configure the Data Quality Dimensions measure of client data partitions
     ![Data Poisoning](utils/images/simulator.gif)
   * **Training Strategy**: Choose which node strategy selection suits best for your training session
+    ![Data Poisoning](utils/images/training.gif)
 
 ### 🔮 Federated Learning Recommender
   * **Federated Configuration**: Insert the Data Characteristic and the Energy Mix info required per each node of your Federated environment
