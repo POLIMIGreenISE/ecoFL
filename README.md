@@ -69,4 +69,7 @@ streamlit run frontend/main.py
 
 ## 👥 Contribution
 We welcome contributions! Feel free to submit pull requests or open issues to help improve the project.
+
+## 🔑 License
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
     
